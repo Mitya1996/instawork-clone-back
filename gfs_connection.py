@@ -23,7 +23,7 @@ def cred():
 
 
 firebase_admin.initialize_app(cred(), {
-    'projectId': 'restaurant-app-314718',
+    'projectId': 'instawork-clone',
 })
 
 db = firestore.client()

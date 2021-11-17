@@ -1,6 +1,5 @@
 from gfs_connection import db
-from models import Gig
-# , Company, Pro
+from models import Gig, Company, Pro
 
 from typing import Optional
 
@@ -13,12 +12,12 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Message": "Hello and welcome to Instawork Clone Backend"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+# @app.get("/items/{item_id}")
+# def read_item(item_id: int, q: Optional[str] = None):
+#     return {"item_id": item_id, "q": q}
 
 # gigs
 
@@ -55,7 +54,7 @@ async def create_gig(gig: Gig):
 
 # companies
 
-
+    # READ ALL
 @app.get("/companies")
 def read_companies():
     companies_ref = db.collection('companies')
@@ -73,6 +72,15 @@ def read_company(company_id: str):
         return {doc.id: doc.to_dict()}
     else:
         return {doc.id: 'No such document!'}
+
+    # CREATE ONE
+
+
+@app.post("/companies/")
+async def create_company(company: Company):
+    db.collection('companies').document().set(company.dict())
+
+    return {'message': 'doc added successfully!'}
 
 
 # pros
@@ -95,3 +103,12 @@ def read_company(pro_id: str):
         return {doc.id: doc.to_dict()}
     else:
         return {doc.id: 'No such document!'}
+
+    # CREATE ONE
+
+
+@app.post("/pros/")
+async def create_pro(pro: Pro):
+    db.collection('pros').document().set(pro.dict())
+
+    return {'message': 'doc added successfully!'}

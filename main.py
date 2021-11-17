@@ -42,7 +42,7 @@ def read_root():
 
 
 @app.get("/gigs", tags=["gigs"])
-def read_gigs():
+def read_all_gigs():
     gigs_ref = db.collection('gigs')
     return {doc.id: doc.to_dict() for doc in gigs_ref.stream()}
 
@@ -73,7 +73,7 @@ async def create_gig(gig: Gig):
 
     # READ ALL
 @app.get("/companies", tags=["companies"])
-def read_companies():
+def read_all_companies():
     companies_ref = db.collection('companies')
     return {doc.id: doc.to_dict() for doc in companies_ref.stream()}
 
@@ -104,7 +104,7 @@ async def create_company(company: Company):
 
     # READ ALL
 @app.get("/pros", tags=["pros"])
-def read_pros():
+def read_all_pros():
     pros_ref = db.collection('pros')
     return {doc.id: doc.to_dict() for doc in pros_ref.stream()}
 

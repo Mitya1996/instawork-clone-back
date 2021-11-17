@@ -1,4 +1,6 @@
 from gfs_connection import db
+from models import Gig
+# , Company, Pro
 
 from typing import Optional
 
@@ -40,6 +42,15 @@ def read_gig(gig_id: str):
         return {doc.id: doc.to_dict()}
     else:
         return {doc.id: 'No such document!'}
+
+    # CREATE ONE
+
+
+@app.post("/gigs/")
+async def create_gig(gig: Gig):
+    db.collection('gigs').document().set(gig.dict())
+
+    return {'message': 'doc added successfully!'}
 
 
 # companies

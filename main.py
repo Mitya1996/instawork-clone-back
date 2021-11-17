@@ -50,10 +50,37 @@ def read_companies():
     companies_ref = db.collection('companies')
     return {doc.id: doc.to_dict() for doc in companies_ref.stream()}
 
+    # READ ONE
+
+
+@app.get("/companies/{company_id}")
+def read_company(company_id: str):
+    doc_ref = db.collection('companies').document(company_id)
+
+    doc = doc_ref.get()
+    if doc.exists:
+        return {doc.id: doc.to_dict()}
+    else:
+        return {doc.id: 'No such document!'}
+
+
 # pros
 
-
+    # READ ALL
 @app.get("/pros")
 def read_pros():
     pros_ref = db.collection('pros')
     return {doc.id: doc.to_dict() for doc in pros_ref.stream()}
+
+    # READ ONE
+
+
+@app.get("/pros/{pro_id}")
+def read_company(pro_id: str):
+    doc_ref = db.collection('pros').document(pro_id)
+
+    doc = doc_ref.get()
+    if doc.exists:
+        return {doc.id: doc.to_dict()}
+    else:
+        return {doc.id: 'No such document!'}

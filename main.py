@@ -1,5 +1,5 @@
 from gfs_connection import db
-from models import Gig, Company, Pro
+from models import Gig, pro, Pro
 
 from typing import Optional
 
@@ -75,6 +75,8 @@ async def update_gig(gig_id: str, gig: Gig):
     else:
         return {doc.id: 'No such document!'}
 
+    # DELETE
+
 
 @app.delete("/gigs/{gig_id}", tags=["gigs"])
 async def delete_gig(gig_id: str):
@@ -98,9 +100,9 @@ def read_all_companies():
     # READ ONE
 
 
-@app.get("/companies/{company_id}", tags=["companies"])
-def read_company(company_id: str):
-    doc_ref = db.collection('companies').document(company_id)
+@app.get("/companies/{pro_id}", tags=["companies"])
+def read_pro(pro_id: str):
+    doc_ref = db.collection('companies').document(pro_id)
 
     doc = doc_ref.get()
     if doc.exists:
@@ -112,22 +114,35 @@ def read_company(company_id: str):
 
 
 @app.post("/companies/", tags=["companies"])
-async def create_company(company: Company):
-    db.collection('companies').document().set(company.dict())
+async def create_pro(pro: pro):
+    db.collection('companies').document().set(pro.dict())
 
     return {'message': 'doc added successfully!'}
 
     # UPDATE
 
 
-@app.put("/companies/{company_id}", tags=["companies"])
-async def update_company(company_id: str, company: Company):
-    doc_ref = db.collection('companies').document(company_id)
+@app.put("/companies/{pro_id}", tags=["companies"])
+async def update_pro(pro_id: str, pro: pro):
+    doc_ref = db.collection('companies').document(pro_id)
 
     doc = doc_ref.get()
     if doc.exists:
-        doc_ref.set(company.dict())
-        return {'message': 'doc updated successfully!', company_id: company}
+        doc_ref.set(pro.dict())
+        return {'message': 'doc updated successfully!', pro_id: pro}
+    else:
+        return {doc.id: 'No such document!'}
+
+    # DELETE
+
+
+@app.delete("/companies/{pro_id}", tags=["companies"])
+async def delete_pro(pro_id: str):
+    doc_ref = db.collection('companies').document(pro_id)
+    doc = doc_ref.get()
+    if doc.exists:
+        doc_ref.delete()
+        return {'message': 'doc deleted successfully!', pro_id: None}
     else:
         return {doc.id: 'No such document!'}
 
@@ -173,5 +188,18 @@ async def update_pro(pro_id: str, pro: Pro):
     if doc.exists:
         doc_ref.set(pro.dict())
         return {'message': 'doc updated successfully!', pro_id: pro}
+    else:
+        return {doc.id: 'No such document!'}
+
+    # DELETE
+
+
+@app.delete("/pros/{pro_id}", tags=["pros"])
+async def delete_pro(pro_id: str):
+    doc_ref = db.collection('pro').document(pro_id)
+    doc = doc_ref.get()
+    if doc.exists:
+        doc_ref.delete()
+        return {'message': 'doc deleted successfully!', pro_id: None}
     else:
         return {doc.id: 'No such document!'}

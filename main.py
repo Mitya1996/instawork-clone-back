@@ -29,7 +29,7 @@ app = FastAPI(title="Instawork Clone Backend", description=description)
 
 @app.get("/")
 def read_root():
-    return {"Message": "Hello and welcome to Instawork Clone Backend"}
+    return {"Message": "Hello and welcome to Instawork Clone Backend. Please see /docs route to interact with the API"}
 
 
 # @app.get("/items/{item_id}")
@@ -67,6 +67,15 @@ async def create_gig(gig: Gig):
     db.collection('gigs').document().set(gig.dict())
 
     return {'message': 'doc added successfully!'}
+
+    # UPDATE
+
+
+@app.put("/gigs/{gig_id}", tags=["gigs"])
+async def update_gig(gig_id: str, gig: Gig):
+    db.collection('gigs').document(gig_id).set(gig.dict())
+
+    return {'message': 'doc updated successfully!', gig_id: gig}
 
 
 # companies

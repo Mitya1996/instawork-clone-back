@@ -3,7 +3,6 @@
 # https://hub.docker.com/_/python
 FROM python:3.9-slim
 
-RUN apt-get update -y
 # Allow statements and log messages to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED True
 
@@ -13,7 +12,7 @@ WORKDIR $APP_HOME
 COPY . ./
 
 # Install production dependencies.
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install -r requirements.txt
 RUN pip3 install gunicorn
 
 # Run the web service on container startup. Here we use the gunicorn

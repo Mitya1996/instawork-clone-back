@@ -31,12 +31,7 @@ app = FastAPI(title="Instawork Clone Backend", description=description)
 def read_root():
     return {"Message": "Hello and welcome to Instawork Clone Backend. Please see /docs route to interact with the API"}
 
-
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: Optional[str] = None):
-#     return {"item_id": item_id, "q": q}
-
-# gigs
+# gigs #################################################
 
     # READ ALL
 
@@ -73,12 +68,17 @@ async def create_gig(gig: Gig):
 
 @app.put("/gigs/{gig_id}", tags=["gigs"])
 async def update_gig(gig_id: str, gig: Gig):
-    db.collection('gigs').document(gig_id).set(gig.dict())
+    doc_ref = db.collection('gigs').document(gig_id)
 
-    return {'message': 'doc updated successfully!', gig_id: gig}
+    doc = doc_ref.get()
+    if doc.exists:
+        doc_ref.set(gig.dict())
+        return {'message': 'doc updated successfully!', gig_id: gig}
+    else:
+        return {doc.id: 'No such document!'}
 
 
-# companies
+# companies ################################################
 
     # READ ALL
 @app.get("/companies", tags=["companies"])
@@ -108,8 +108,22 @@ async def create_company(company: Company):
 
     return {'message': 'doc added successfully!'}
 
+    # UPDATE
 
-# pros
+
+@app.put("/companies/{company_id}", tags=["companies"])
+async def update_company(company_id: str, company: Company):
+    doc_ref = db.collection('companies').document(company_id)
+
+    doc = doc_ref.get()
+    if doc.exists:
+        doc_ref.set(company.dict())
+        return {'message': 'doc updated successfully!', company_id: company}
+    else:
+        return {doc.id: 'No such document!'}
+
+
+# pros ###############################################################
 
     # READ ALL
 @app.get("/pros", tags=["pros"])
@@ -121,7 +135,7 @@ def read_all_pros():
 
 
 @app.get("/pros/{pro_id}", tags=["pros"])
-def read_company(pro_id: str):
+def read_pro(pro_id: str):
     doc_ref = db.collection('pros').document(pro_id)
 
     doc = doc_ref.get()
@@ -138,3 +152,17 @@ async def create_pro(pro: Pro):
     db.collection('pros').document().set(pro.dict())
 
     return {'message': 'doc added successfully!'}
+
+    # UPDATE
+
+
+@app.put("/pros/{pro_id}", tags=["pros"])
+async def update_pro(pro_id: str, pro: Pro):
+    doc_ref = db.collection('pros').document(pro_id)
+
+    doc = doc_ref.get()
+    if doc.exists:
+        doc_ref.set(pro.dict())
+        return {'message': 'doc updated successfully!', pro_id: pro}
+    else:
+        return {doc.id: 'No such document!'}

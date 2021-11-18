@@ -24,8 +24,6 @@ You can **create, read, update, and delete pros**.
 
 app = FastAPI(title="Instawork Clone Backend", description=description)
 
-# sample queries
-
 
 @app.get("/")
 def read_root():
@@ -54,7 +52,7 @@ def read_gig(gig_id: str):
     else:
         return {doc.id: 'No such document!'}
 
-    # CREATE ONE
+    # CREATE
 
 
 @app.post("/gigs/", tags=["gigs"])
@@ -74,6 +72,17 @@ async def update_gig(gig_id: str, gig: Gig):
     if doc.exists:
         doc_ref.set(gig.dict())
         return {'message': 'doc updated successfully!', gig_id: gig}
+    else:
+        return {doc.id: 'No such document!'}
+
+
+@app.delete("/gigs/{gig_id}", tags=["gigs"])
+async def delete_gig(gig_id: str):
+    doc_ref = db.collection('gigs').document(gig_id)
+    doc = doc_ref.get()
+    if doc.exists:
+        doc_ref.delete()
+        return {'message': 'doc deleted successfully!', gig_id: None}
     else:
         return {doc.id: 'No such document!'}
 
@@ -99,7 +108,7 @@ def read_company(company_id: str):
     else:
         return {doc.id: 'No such document!'}
 
-    # CREATE ONE
+    # CREATE
 
 
 @app.post("/companies/", tags=["companies"])
@@ -144,7 +153,7 @@ def read_pro(pro_id: str):
     else:
         return {doc.id: 'No such document!'}
 
-    # CREATE ONE
+    # CREATE
 
 
 @app.post("/pros/", tags=["pros"])

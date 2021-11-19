@@ -1,4 +1,4 @@
-from gfs_connection import db
+from nosql_db import db
 from models import Gig, Company, Pro
 
 from fastapi import FastAPI

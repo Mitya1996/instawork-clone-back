@@ -28,11 +28,9 @@ app = FastAPI(title="Instawork Clone Backend", description=description)
 
 @app.get("/")
 def read_root():
-    print('===================================')
     import os
-    os.system('ls -la')
-    print('===================================')
-    return {"Message": "Hello and welcome to Instawork Clone Backend. Please see /docs route to interact with the API"}
+    files = os.listdir('/gcp')
+    return {"Message": "Hello and welcome to Instawork Clone Backend. Please see /docs route to interact with the API", "Logs": files}
 
 # gigs #################################################
 

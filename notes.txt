@@ -1,0 +1,58 @@
+# ok so now I have to make the db on gcp and put client lib deps at the top of my main.py
+
+now i have to implement authentication somehow 
+via secret manager probably 
+
+because last time I had it set up so that 
+ok that's right it works with service accounts, so 
+i remember you need to either have google application credentials as a shell variable 
+/ pointing to a file in the root of the repo
+or you need to get the service account client library and 
+
+no no no, i actually hacked and wrote a script where google_app_credentials is written to the 
+yes 
+because cloud run still did not allow a way for accessing .json
+
+yes that's right i even sshed into it and found where it is but the file is bare with no extension 
+
+ask wietse venema to tell GCP to make .json file extensions possible????
+
+good work today, i think maybe it can just be called xxx.json directly thru cloud run without the hax ??
+
+until tmw
+
+so now .... make container of this api ... don't really need to for local dev 
+
+test the db
+
+READ Complete for all 3 collections
+
+now make 
+CREATE
+UPDATE
+DELETE
+
+what do do first? deploy with container and revisions / ect. or first get to work locally. obvi get to 
+work locally dummy
+
+chill off on the deployment
+I know it's exciting
+
+when time comes to deploy then try to do the / mount route and see if u can name it xxx.json
+
+ok so how in gods name do i post something while not mussing up the inbetween model stage 
+
+ok so update/put works / writes to the db but it gives a validation error, why does it not validate
+this has to do with the inner workings of the @app.put decorator which i have not bothered to learn
+the inner workings of
+
+ok now DELETE
+
+ok so now let's see if we can get the mounted key.json to work
+first we need to test ls-ing /gcp
+
+ok so how do we do a conditional local vs remote now
+
+last time i was  able to do it because i had an environment variable
+perhaps i can do the same, but now it's mounted 
+

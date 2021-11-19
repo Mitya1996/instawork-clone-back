@@ -1,5 +1,4 @@
 .pytest_cache
 venv
 __pycache__
-notes.txt
 key.json

@@ -10,7 +10,7 @@ https://instawork-clone-back-ltgvqmmasq-ez.a.run.app/
 ![](/README_img/3.png)
 ![](/README_img/4.png)
 
-# Setup
+## Setup
 
 * You will have to create a GCP project and a firestore database.  
 * A service account key with all permissions is also required.

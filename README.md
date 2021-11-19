@@ -1,5 +1,7 @@
 # Instawork Clone Backend
 
+This backend is made with FastAPI and GCP : )
+
 live production version  
 https://instawork-clone-back-ltgvqmmasq-ez.a.run.app/
 

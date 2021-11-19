@@ -1,3 +1,4 @@
+from re import I
 from gfs_connection import db
 from models import Gig, Company, Pro
 
@@ -27,7 +28,9 @@ app = FastAPI(title="Instawork Clone Backend", description=description)
 
 @app.get("/")
 def read_root():
-    return {"Message": "Hello and welcome to Instawork Clone Backend. Please see /docs route to interact with the API"}
+    import os
+    log = os.system('ls -la')
+    return {"Message": "Hello and welcome to Instawork Clone Backend. Please see /docs route to interact with the API", "Log": log}
 
 # gigs #################################################
 

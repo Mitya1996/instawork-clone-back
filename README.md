@@ -22,3 +22,6 @@ https://instawork-clone-back-ltgvqmmasq-ez.a.run.app/
 `uvicorn main:app --reload` to start the server locally
 
 Cloud Run provides a https endpoint when the server is live
+
+
+Any questions please write me at dj@omskconsulting.com, seriously noone uses this : )
